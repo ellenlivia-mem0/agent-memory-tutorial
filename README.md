@@ -8,7 +8,7 @@ Add persistent memory to multi-agent systems using [Mem0](https://mem0.ai) and [
 
 | Platform | Description | Link |
 |---|---|---|
-| [Multica](https://github.com/multica-ai/multica) | Give each Multica agent (Claude Code, Codex, Gemini) its own scoped memory via `--agent-id` | [multica/](multica/) |
+| [Multica](https://github.com/multica-ai/multica) | Give each Multica agent (Claude Code, Codex, Gemini) its own scoped memory via `--agent-id` | [Adding Memory to Multi-Agent Systems — mem0-multica/](Adding%20Memory%20to%20Multi-Agent%20Systems%20—%20mem0-multica/) |
 
 ## Quick Start
 
@@ -20,7 +20,7 @@ pip install mem0-cli
 mem0 init --email you@example.com
 
 # Pick a tutorial
-cd multica/
+cd "Adding Memory to Multi-Agent Systems — mem0-multica/"
 make setup EMAIL=you@example.com
 make demo
 ```
