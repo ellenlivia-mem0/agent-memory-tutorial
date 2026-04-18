@@ -236,18 +236,63 @@ Each agent builds up its own knowledge base over time. The more tasks they compl
 
 ---
 
+## Native Multica Integration (Fork)
+
+We also have a fork of multica with mem0 built directly into the daemon — agents automatically search and store memories without any scripts:
+
+**Fork:** [ellenlivia-mem0/multica (feat/mem0-integration)](https://github.com/ellenlivia-mem0/multica/tree/feat/mem0-integration)
+
+### What the fork does
+
+The integration adds a `server/internal/mem0/` package that wraps the mem0 CLI and hooks into two points in the daemon's task lifecycle:
+
+| Hook | File | What happens |
+|---|---|---|
+| Before task dispatch | `daemon.go` → `runTask()` | Searches mem0 for relevant memories, prepends them to the agent prompt |
+| After task completion | `daemon.go` → `handleTask()` | Stores the agent's output as a memory for future tasks |
+
+Memories are scoped by `--agent-id` (the agent provider, e.g. `claude-code`) and `--user-id` (the workspace ID).
+
+### Running the fork
+
+```bash
+# Clone the fork
+git clone https://github.com/ellenlivia-mem0/multica.git
+cd multica
+git checkout feat/mem0-integration
+
+# Install and authenticate mem0 CLI on the machine running the daemon
+pip install mem0-cli
+mem0 init --email you@example.com --force
+
+# Start multica as normal
+make dev
+```
+
+The daemon will automatically use mem0 if the CLI is installed and authenticated. If not, it works exactly like upstream multica — mem0 is entirely optional.
+
+### Key files changed
+
+- `server/internal/mem0/mem0.go` — CLI wrapper (Search, Add, FormatForPrompt)
+- `server/internal/daemon/prompt.go` — BuildPrompt accepts mem0 context
+- `server/internal/daemon/daemon.go` — search before dispatch, store after completion
+
+---
+
 ## File Structure
 
 ```
-multica-mem0-integration/
-├── README.md                   # this file
-├── scripts/
-│   ├── setup-mem0.sh          # install + email login
-│   ├── pre-task.sh            # search memories before task
-│   └── post-task.sh           # store memories after task
-└── examples/
-    ├── single-agent.sh        # basic single agent example
-    └── multi-agent.sh         # multi-agent workflow example
+agent-memory-tutorial/
+└── Adding Memory to Multi-Agent Systems — mem0-multica/
+    ├── README.md                   # this file
+    ├── Makefile                    # make setup, make demo, etc.
+    ├── scripts/
+    │   ├── setup-mem0.sh          # install + email login
+    │   ├── pre-task.sh            # search memories before task
+    │   └── post-task.sh           # store memories after task
+    └── examples/
+        ├── single-agent.sh        # basic single agent example
+        └── multi-agent.sh         # multi-agent workflow example
 ```
 
 ## License
