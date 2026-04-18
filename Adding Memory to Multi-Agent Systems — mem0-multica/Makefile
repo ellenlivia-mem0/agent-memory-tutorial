@@ -11,7 +11,7 @@ setup: ## Install multica + mem0-cli (run: make setup EMAIL=you@example.com)
 	pip install mem0-cli
 	@echo ""
 	@echo "==> Logging into Mem0 as $(EMAIL)..."
-	mem0 init --email $(EMAIL)
+	mem0 init --email $(EMAIL) --force
 
 login: ## Login to multica cloud
 	multica login
