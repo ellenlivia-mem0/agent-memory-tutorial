@@ -10,11 +10,8 @@ setup: ## Install multica + mem0-cli (run: make setup EMAIL=you@example.com)
 	brew install multica-ai/tap/multica || true
 	pip install mem0-cli
 	@echo ""
-	@echo "==> Sending verification code to $(EMAIL)..."
+	@echo "==> Logging into Mem0 as $(EMAIL)..."
 	mem0 init --email $(EMAIL)
-	@echo ""
-	@echo "Enter the code from your email:"
-	@read CODE && mem0 init --email $(EMAIL) --code $$CODE --force
 
 login: ## Login to multica cloud
 	multica login
