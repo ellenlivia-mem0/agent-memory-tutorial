@@ -1,6 +1,8 @@
-# Agent Memory Tutorial
+# Adding Memory to Multi-Agent Systems
 
-Add persistent memory to multi-agent systems using [Mem0](https://mem0.ai). Each tutorial shows how to integrate Mem0 CLI with a different agent platform — no API key needed, just your email.
+## mem0-multica
+
+Add persistent memory to multi-agent systems using [Mem0](https://mem0.ai) and [Multica](https://github.com/multica-ai/multica). Each agent (Claude Code, Codex, Gemini) gets its own scoped memory via `--agent-id` — no API key needed, just your email.
 
 ## Tutorials
 
